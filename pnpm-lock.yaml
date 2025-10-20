@@ -17,6 +17,9 @@ importers:
       '@whop/react':
         specifier: 0.2.36
         version: 0.2.36(@auth/core@0.40.0)(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      appwrite:
+        specifier: ^21.2.1
+        version: 21.2.1
       next:
         specifier: 15.3.2
         version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -26,6 +29,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+      react-icons:
+        specifier: ^5.5.0
+        version: 5.5.0(react@19.1.0)
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -43,8 +49,8 @@ importers:
         specifier: ^19
         version: 19.1.5(@types/react@19.1.4)
       '@whop-apps/dev-proxy':
-        specifier: 0.0.1-canary.116
-        version: 0.0.1-canary.116
+        specifier: 0.0.1-canary.117
+        version: 0.0.1-canary.117
       dotenv-cli:
         specifier: ^8.0.0
         version: 8.0.0
@@ -1746,11 +1752,11 @@ packages:
       '@aws-sdk/credential-provider-web-identity':
         optional: true
 
-  '@whop-apps/core@0.0.1-canary.116':
-    resolution: {integrity: sha512-8dKsoY3NCQXGnDmYvDC4UYeAQnGTPUuqMIWEM3XgFKkK6+JLcKcJ7FfD4pw5kEz7Bops8GQCPO210vlG49YfCQ==}
+  '@whop-apps/core@0.0.1-canary.117':
+    resolution: {integrity: sha512-blZKhIF4lCcmHCtfo0rYf1XCwvGsLpRUMvmTpfPJ5ly14ecpJU4DDJFNOvGRrgYRhmjrcDP/Ghj/FMVPrfoYXw==}
 
-  '@whop-apps/dev-proxy@0.0.1-canary.116':
-    resolution: {integrity: sha512-7droSqunJt/Qa4wpZIbYXVOqs30F+GT1BQUOGwPThjoX08RW/G9SshS3Sp/uMIA2uX6BH3ZinBrNjhHEfv0p+g==}
+  '@whop-apps/dev-proxy@0.0.1-canary.117':
+    resolution: {integrity: sha512-JpJSX0ui/Y4ybIKarMU542LscsP5iPZPSN27wos6I8mrUAJBXcZV1GrWBIt6aVoEXArbtx39Ic4+R5van7txtQ==}
     hasBin: true
 
   '@whop/api@0.0.42':
@@ -1783,6 +1789,9 @@ packages:
     engines: {node: 22.x, pnpm: 9.15.9}
     peerDependencies:
       react: ^19.0.0
+
+  appwrite@21.2.1:
+    resolution: {integrity: sha512-OKC95Obw/VuruLf/XqURXHe/6uyQ8/ORpu/GEJC3MrPmwevElFFkE890LmYaolelKYYDPslFnHwgwAn+K3YgqA==}
 
   aria-hidden@1.2.6:
     resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
@@ -1892,8 +1901,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  graphql-request@7.2.0:
-    resolution: {integrity: sha512-0GR7eQHBFYz372u9lxS16cOtEekFlZYB2qOyq8wDvzRmdRSJ0mgUVX1tzNcIzk3G+4NY+mGtSz411wZdeDF/+A==}
+  graphql-request@7.3.1:
+    resolution: {integrity: sha512-GdinBsBVYrWzwEvOlzadrV5j8mdOc9ZT8In9QyRIZaxbhkTL08j35yNbPp96jAacYzjeD/hKKy2E2RGI7c7Yug==}
     peerDependencies:
       graphql: 14 - 16
 
@@ -2103,6 +2112,11 @@ packages:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
       react: ^19.1.0
+
+  react-icons@5.5.0:
+    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
+    peerDependencies:
+      react: '*'
 
   react-remove-scroll-bar@2.3.8:
     resolution: {integrity: sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==}
@@ -4368,12 +4382,12 @@ snapshots:
 
   '@vercel/functions@2.0.3': {}
 
-  '@whop-apps/core@0.0.1-canary.116': {}
+  '@whop-apps/core@0.0.1-canary.117': {}
 
-  '@whop-apps/dev-proxy@0.0.1-canary.116':
+  '@whop-apps/dev-proxy@0.0.1-canary.117':
     dependencies:
       '@types/http-proxy': 1.17.16
-      '@whop-apps/core': 0.0.1-canary.116
+      '@whop-apps/core': 0.0.1-canary.117
       cookie: 1.0.2
       http-proxy: 1.18.1
       jose: 4.15.9
@@ -4384,7 +4398,7 @@ snapshots:
     dependencies:
       '@auth/core': 0.40.0
       graphql: 16.11.0
-      graphql-request: 7.2.0(graphql@16.11.0)
+      graphql-request: 7.3.1(graphql@16.11.0)
       graphql-tag: 2.12.6(graphql@16.11.0)
       jose: 6.0.11
       js-md5: 0.8.3
@@ -4394,7 +4408,7 @@ snapshots:
     dependencies:
       '@auth/core': 0.40.0
       graphql: 16.11.0
-      graphql-request: 7.2.0(graphql@16.11.0)
+      graphql-request: 7.3.1(graphql@16.11.0)
       graphql-tag: 2.12.6(graphql@16.11.0)
       jose: 6.0.11
       js-md5: 0.8.3
@@ -4421,6 +4435,8 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
+
+  appwrite@21.2.1: {}
 
   aria-hidden@1.2.6:
     dependencies:
@@ -4530,7 +4546,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  graphql-request@7.2.0(graphql@16.11.0):
+  graphql-request@7.3.1(graphql@16.11.0):
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.11.0)
       graphql: 16.11.0
@@ -4827,6 +4843,10 @@ snapshots:
     dependencies:
       react: 19.1.0
       scheduler: 0.26.0
+
+  react-icons@5.5.0(react@19.1.0):
+    dependencies:
+      react: 19.1.0
 
   react-remove-scroll-bar@2.3.8(@types/react@19.1.4)(react@19.1.0):
     dependencies:

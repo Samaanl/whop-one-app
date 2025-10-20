@@ -1,111 +1,128 @@
-export default function Page() {
-	return (
-		<div className="min-h-screen bg-gray-a12 py-12 px-4 sm:px-6 lg:px-8">
-			<div className="max-w-3xl mx-auto">
-				<div className="text-center mb-12">
-					<h1 className="text-8 font-bold text-gray-9 mb-4">
-						Welcome to Your Whop App
-					</h1>
-					<p className="text-4 text-gray-6">
-						Follow these steps to get started with your Whop application
-					</p>
-				</div>
+"use client";
 
-				<div className="space-y-8">
-					<div className="bg-white p-6 rounded-lg shadow-md">
-						<h2 className="text-5 font-semibold text-gray-9 mb-4 flex items-center">
-							<span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-accent-9 text-white mr-3">
-								1
-							</span>
-							Create your Whop app
-						</h2>
-						<p className="text-gray-6 ml-11">
-							Go to your{" "}
-							<a
-								href="https://whop.com/dashboard"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-accent-9 hover:text-accent-10 underline"
-							>
-								Whop Dashboard
-							</a>{" "}
-							and create a new app in the Developer section.
-						</p>
-					</div>
+import { useRouter } from "next/navigation";
+import {
+  HiSparkles,
+  HiLockClosed,
+  HiCalendar,
+  HiArrowRight,
+} from "react-icons/hi";
 
-					<div className="bg-white p-6 rounded-lg shadow-md">
-						<h2 className="text-5 font-semibold text-gray-9 mb-4 flex items-center">
-							<span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-accent-9 text-white mr-3">
-								2
-							</span>
-							Set up environment variables
-						</h2>
-						<p className="text-gray-6 ml-11 mb-4">
-							Copy the .env file from your dashboard and create a new .env file
-							in your project root. This will contain all the necessary
-							environment variables for your app.
-						</p>
-						{process.env.NODE_ENV === "development" && (
-							<div className="text-gray-6 ml-11">
-								<pre>
-									<code>
-										WHOP_API_KEY={process.env.WHOP_API_KEY?.slice(0, 5)}...
-										<br />
-										NEXT_PUBLIC_WHOP_AGENT_USER_ID=
-										{process.env.NEXT_PUBLIC_WHOP_AGENT_USER_ID}
-										<br />
-										NEXT_PUBLIC_WHOP_APP_ID=
-										{process.env.NEXT_PUBLIC_WHOP_APP_ID}
-										<br />
-										NEXT_PUBLIC_WHOP_COMPANY_ID=
-										{process.env.NEXT_PUBLIC_WHOP_COMPANY_ID}
-									</code>
-								</pre>
-							</div>
-						)}
-					</div>
+export default function LandingPage() {
+  const router = useRouter();
 
-					<div className="bg-white p-6 rounded-lg shadow-md">
-						<h2 className="text-5 font-semibold text-gray-9 mb-4 flex items-center">
-							<span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-accent-9 text-white mr-3">
-								3
-							</span>
-							Install your app into your whop
-						</h2>
-						<p className="text-gray-6 ml-11">
-							{process.env.NEXT_PUBLIC_WHOP_APP_ID ? (
-								<a
-									href={`https://whop.com/apps/${process.env.NEXT_PUBLIC_WHOP_APP_ID}/install`}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-accent-9 hover:text-accent-10 underline"
-								>
-									Click here to install your app
-								</a>
-							) : (
-								<span className="text-amber-600">
-									Please set your environment variables to see the installation
-									link
-								</span>
-							)}
-						</p>
-					</div>
-				</div>
+  const handleCheckDrop = () => {
+    router.push("/today");
+  };
 
-				<div className="mt-12 text-center text-2 text-gray-5">
-					<p>
-						Need help? Visit the{" "}
-						<a
-							href="https://dev.whop.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-accent-9 hover:text-accent-10 underline"
-						>
-							Whop Documentation
-						</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	);
+  const features = [
+    {
+      icon: HiCalendar,
+      title: "Daily Content",
+      description: "Fresh drops delivered every single day",
+      gradient: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: HiLockClosed,
+      title: "Members Only",
+      description: "Exclusive access for premium members",
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: HiSparkles,
+      title: "Premium Quality",
+      description: "Curated content worth your time",
+      gradient: "from-amber-500 to-orange-500",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+      <div className="max-w-5xl w-full">
+        <div className="text-center space-y-16 animate-fade-in">
+          {/* Hero Section */}
+          <div className="space-y-8">
+            {/* Badge */}
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-sm font-medium">
+                <HiSparkles className="w-4 h-4" />
+                <span>Premium Content Platform</span>
+              </div>
+            </div>
+
+            {/* Main Heading */}
+            <div className="space-y-6">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+                <span className="gradient-text">The Daily Drop</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Unlock exclusive daily content crafted specifically for our
+                premium members
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+              <button
+                onClick={handleCheckDrop}
+                className="group btn btn-primary inline-flex items-center gap-2 text-lg"
+              >
+                <span>View Today's Drop</span>
+                <HiArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={feature.title}
+                  className="card-hover glass rounded-3xl p-10 text-center space-y-6 border-2 border-gray-200"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="flex justify-center">
+                    <div
+                      className={`inline-flex p-6 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-2xl`}
+                    >
+                      <Icon className="w-12 h-12 text-white" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {feature.title}
+                  </h3>
+                  <p className="text-base text-gray-700 font-medium leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Social Proof */}
+          <div className="pt-12 space-y-4">
+            <div className="flex justify-center items-center gap-3 text-gray-900">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 border-3 border-white shadow-lg"
+                  />
+                ))}
+              </div>
+              <span className="text-base font-bold">
+                Join{" "}
+                <span className="text-purple-600 font-extrabold text-lg">
+                  1,000+
+                </span>{" "}
+                members
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
