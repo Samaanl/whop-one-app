@@ -21,6 +21,10 @@ export default async function ExperiencePage({
     experienceId,
   });
 
+  // Get the experience to extract the companyId
+  const experience = await whopSdk.experiences.getExperience({ experienceId });
+  const companyId = experience.company.id;
+
   // Either: 'admin' | 'customer' | 'no_access';
   // 'admin' means the user is an admin of the whop, such as an owner or moderator
   // 'customer' means the user is a common member in this whop
@@ -30,9 +34,9 @@ export default async function ExperiencePage({
   // Redirect based on access level
   if (accessLevel === "no_access") {
     // Non-member: show locked page with upgrade option
-    redirect("/locked");
+    redirect(`/locked?companyId=${companyId}`);
   }
 
-  // Member or admin: redirect to today's drop
-  redirect("/today");
+  // Member or admin: redirect to today's drop with companyId
+  redirect(`/today?companyId=${companyId}`);
 }
