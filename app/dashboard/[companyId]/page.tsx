@@ -82,14 +82,32 @@ export default function DashboardPage({
       const response = await fetch(
         `/api/daily-drop/list?companyId=${companyId}&limit=10`
       );
+
+      // Check if response is HTML (404 page) instead of JSON
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("text/html")) {
+        throw new Error(
+          "API endpoint not found. Please redeploy your app or restart the dev server."
+        );
+      }
+
       const data = await response.json();
 
       if (response.ok) {
         setRecentDrops(data.drops || []);
         setStats(data.stats || { totalDrops: 0, thisMonth: 0, thisWeek: 0 });
+      } else {
+        throw new Error(data.error || "Failed to fetch drops");
       }
     } catch (error) {
       console.error("Error fetching drops:", error);
+      setMessage({
+        type: "error",
+        text:
+          error instanceof Error
+            ? error.message
+            : "Failed to load drops. Please try refreshing or redeploying the app.",
+      });
     } finally {
       setDropsLoading(false);
     }
