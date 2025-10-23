@@ -2,7 +2,6 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Navigation from "@/components/Navigation";
 import {
   HiCalendar,
   HiExternalLink,
@@ -74,7 +73,6 @@ function TodayPageContent() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Navigation />
         <div className="text-center space-y-6 animate-fade-in">
           <div className="relative w-16 h-16 mx-auto">
             <div className="absolute inset-0 border-4 border-purple-200 rounded-full"></div>
@@ -94,7 +92,6 @@ function TodayPageContent() {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <Navigation />
         <div className="max-w-md w-full text-center space-y-6 animate-scale-in">
           <div className="inline-flex p-6 rounded-full bg-red-100">
             <HiExclamationCircle className="w-16 h-16 text-red-600" />
@@ -129,7 +126,6 @@ function TodayPageContent() {
   if (!drop) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <Navigation />
         <div className="max-w-md w-full text-center space-y-6 animate-scale-in">
           <div className="inline-flex p-6 rounded-full bg-purple-100">
             <HiInboxIn className="w-16 h-16 text-purple-600" />
@@ -160,7 +156,6 @@ function TodayPageContent() {
 
   return (
     <div className="min-h-screen px-4 py-12">
-      <Navigation />
       <div className="max-w-4xl mx-auto">
         <div className="space-y-10 animate-fade-in">
           {/* Header */}
