@@ -10,7 +10,7 @@ import { NextResponse } from "next/server";
 import { Query } from "appwrite";
 
 // GET - Fetch today's drop
-export async function GET() {
+export async function GET(request: Request) {
   try {
     // Verify user authentication
     const headersList = await headers();
@@ -20,30 +20,27 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Check if user has access
-    const accessPassId = process.env.NEXT_PUBLIC_WHOP_ACCESS_PASS_ID;
-    if (!accessPassId) {
+    // Get companyId from query parameters (passed from frontend)
+    const { searchParams } = new URL(request.url);
+    const companyId = searchParams.get("companyId");
+
+    if (!companyId) {
       return NextResponse.json(
-        { error: "Configuration error" },
-        { status: 500 }
+        { error: "Company ID is required" },
+        { status: 400 }
       );
     }
 
-    const hasAccess = await whopSdk.access.checkIfUserHasAccessToAccessPass({
-      accessPassId,
+    // Verify the user has access to THIS specific company
+    const hasAccess = await whopSdk.access.checkIfUserHasAccessToCompany({
+      companyId,
       userId: userToken.userId,
     });
 
     if (!hasAccess.hasAccess) {
-      return NextResponse.json({ error: "Access denied" }, { status: 403 });
-    }
-
-    // Get the company ID from the user's context
-    const companyId = process.env.NEXT_PUBLIC_WHOP_COMPANY_ID;
-    if (!companyId) {
       return NextResponse.json(
-        { error: "Configuration error" },
-        { status: 500 }
+        { error: "Access denied to this company" },
+        { status: 403 }
       );
     }
 
@@ -95,17 +92,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Check if user is admin/creator
-    // You can implement your own admin check logic here
-    // For now, we'll assume the creator has a specific role or is the company owner
-    const companyId = process.env.NEXT_PUBLIC_WHOP_COMPANY_ID;
+    // Parse request body (companyId comes from frontend)
+    const body = await request.json();
+    const { title, content, video_url, link, companyId } = body;
+
     if (!companyId) {
       return NextResponse.json(
-        { error: "Configuration error" },
-        { status: 500 }
+        { error: "Company ID is required" },
+        { status: 400 }
       );
     }
 
+    // Check if user is admin/creator of THIS specific company
     const access = await whopSdk.access.checkIfUserHasAccessToCompany({
       companyId,
       userId: userToken.userId,
@@ -113,14 +111,10 @@ export async function POST(request: Request) {
 
     if (!access.hasAccess || access.accessLevel !== "admin") {
       return NextResponse.json(
-        { error: "Admin access required" },
+        { error: "Admin access required for this company" },
         { status: 403 }
       );
     }
-
-    // Parse request body
-    const body = await request.json();
-    const { title, content, video_url, link } = body;
 
     if (!content) {
       return NextResponse.json(

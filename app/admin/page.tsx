@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import {
   HiPencilAlt,
@@ -17,6 +17,10 @@ import {
 
 export default function AdminPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const companyId =
+    searchParams.get("companyId") || process.env.NEXT_PUBLIC_WHOP_COMPANY_ID;
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -31,6 +35,15 @@ export default function AdminPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!companyId) {
+      setMessage({
+        type: "error",
+        text: "Company ID not found. Please access this app from your Whop dashboard.",
+      });
+      return;
+    }
+
     setLoading(true);
     setMessage(null);
 
@@ -40,7 +53,7 @@ export default function AdminPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, companyId }),
       });
 
       const data = await response.json();

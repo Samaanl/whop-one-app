@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import {
   HiCalendar,
@@ -20,17 +21,32 @@ interface DailyDrop {
 }
 
 export default function TodayPage() {
+  const searchParams = useSearchParams();
+  const companyId =
+    searchParams.get("companyId") || process.env.NEXT_PUBLIC_WHOP_COMPANY_ID;
+
   const [drop, setDrop] = useState<DailyDrop | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchTodaysDrop();
-  }, []);
+    if (companyId) {
+      fetchTodaysDrop();
+    } else {
+      setError(
+        "Company ID not found. Please access this app from your Whop dashboard."
+      );
+      setLoading(false);
+    }
+  }, [companyId]);
 
   const fetchTodaysDrop = async () => {
+    if (!companyId) {
+      return;
+    }
+
     try {
-      const response = await fetch("/api/daily-drop");
+      const response = await fetch(`/api/daily-drop?companyId=${companyId}`);
       const data = await response.json();
 
       if (response.ok && data.drop) {
