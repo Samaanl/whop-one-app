@@ -795,6 +795,51 @@ export default function DashboardPage({
               </div>
             </div>
 
+            {/* Next Drop Reminder */}
+            <div className="glass rounded-2xl p-6 border-2 border-purple-200 bg-gradient-to-br from-purple-50/50 to-indigo-50/50">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <HiClock className="w-5 h-5 text-purple-600" />
+                Member Expectations
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-white rounded-xl p-4 border border-purple-200">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">
+                    📅 When will members see the next drop?
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    Members expect{" "}
+                    <strong className="text-purple-700">
+                      daily drops at midnight (12:00 AM)
+                    </strong>{" "}
+                    based on the date field. If you haven't posted today's drop
+                    yet, it will show as "No drop today" to members.
+                  </p>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-blue-200">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">
+                    ⏰ What time should you post?
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    Post drops{" "}
+                    <strong className="text-blue-700">before midnight</strong>{" "}
+                    (ideally in the evening) so members see fresh content when
+                    they check in the morning. Consistency builds habit!
+                  </p>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-green-200">
+                  <p className="text-sm font-semibold text-gray-900 mb-2">
+                    💡 Member message after viewing
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    After reading today's drop, members see:{" "}
+                    <span className="font-bold text-green-700">
+                      "Come back tomorrow at midnight for your next drop!"
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Tips Card */}
             <div className="glass rounded-2xl p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">

@@ -217,11 +217,20 @@ function TodayPageContent() {
 
           {/* Footer */}
           <div className="text-center pt-6">
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-300">
-              <HiCheckCircle className="w-5 h-5 text-green-700" />
-              <span className="text-base font-bold text-green-900">
-                Come back tomorrow for your next drop
-              </span>
+            <div className="inline-flex flex-col items-center gap-3 px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-100 to-indigo-100 border-2 border-purple-300 shadow-lg">
+              <div className="flex items-center gap-2">
+                <HiClock className="w-5 h-5 text-purple-700" />
+                <span className="text-lg font-bold text-purple-900">
+                  Next Drop Available Soon!
+                </span>
+              </div>
+              <p className="text-sm font-semibold text-purple-800">
+                Come back tomorrow at{" "}
+                <span className="text-purple-900 font-bold">
+                  midnight (12:00 AM)
+                </span>{" "}
+                for your next exclusive drop 🎁
+              </p>
             </div>
           </div>
         </div>
