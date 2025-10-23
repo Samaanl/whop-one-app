@@ -828,11 +828,11 @@ export default function DashboardPage({
                   </p>
                   <div className="bg-gray-50 rounded-lg p-3 border border-gray-300">
                     <p className="text-sm font-mono text-gray-900">
-                      "Next Drop Available Soon!"
+                      "Check Back Soon"
                     </p>
                     <p className="text-sm font-mono text-gray-900">
-                      "Come back tomorrow at midnight (12:00 AM) for your next
-                      exclusive drop"
+                      "New exclusive drops are published regularly. Check back
+                      soon for your next drop!"
                     </p>
                   </div>
                   <p className="text-xs text-gray-600 mt-2">

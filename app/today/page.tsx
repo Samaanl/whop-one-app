@@ -221,15 +221,12 @@ function TodayPageContent() {
               <div className="flex items-center gap-2">
                 <HiClock className="w-5 h-5 text-purple-700" />
                 <span className="text-lg font-bold text-purple-900">
-                  Next Drop Available Soon!
+                  Check Back Soon
                 </span>
               </div>
               <p className="text-sm font-semibold text-purple-800">
-                Come back tomorrow at{" "}
-                <span className="text-purple-900 font-bold">
-                  midnight (12:00 AM)
-                </span>{" "}
-                for your next exclusive drop
+                New exclusive drops are published regularly. Check back soon for
+                your next drop!
               </p>
             </div>
           </div>
