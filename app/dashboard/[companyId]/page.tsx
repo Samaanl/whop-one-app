@@ -396,7 +396,7 @@ export default function DashboardPage({
                     </span>
                     {formData.title.length > 2000 && (
                       <span className="text-orange-600 font-medium">
-                        ⚠️ Approaching limit
+                        Approaching limit
                       </span>
                     )}
                   </div>
@@ -429,7 +429,7 @@ export default function DashboardPage({
                     </span>
                     {formData.content.length > 90000 && (
                       <span className="text-orange-600 font-medium">
-                        ⚠️ Approaching limit
+                        Approaching limit
                       </span>
                     )}
                   </div>
@@ -463,7 +463,7 @@ export default function DashboardPage({
                     </span>
                     {formData.video_url.length > 4500 && (
                       <span className="text-orange-600 font-medium">
-                        ⚠️ Approaching limit
+                        Approaching limit
                       </span>
                     )}
                   </div>
@@ -491,15 +491,8 @@ export default function DashboardPage({
                     placeholder="https://example.com/resource"
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all outline-none"
                   />
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-gray-500">
-                      {formData.link.length} / 5,000 characters
-                    </span>
-                    {formData.link.length > 4500 && (
-                      <span className="text-orange-600 font-medium">
-                        ⚠️ Approaching limit
-                      </span>
-                    )}
+                  <div className="text-xs text-gray-500">
+                    {formData.link.length} / 5,000 characters
                   </div>
                 </div>
               </div>
@@ -804,7 +797,7 @@ export default function DashboardPage({
               <div className="space-y-4">
                 <div className="bg-white rounded-xl p-4 border border-purple-200">
                   <p className="text-sm font-semibold text-gray-900 mb-2">
-                    📅 When will members see the next drop?
+                    When will members see the next drop?
                   </p>
                   <p className="text-sm text-gray-700">
                     Members expect{" "}
@@ -817,7 +810,7 @@ export default function DashboardPage({
                 </div>
                 <div className="bg-white rounded-xl p-4 border border-blue-200">
                   <p className="text-sm font-semibold text-gray-900 mb-2">
-                    ⏰ What time should you post?
+                    What time should you post?
                   </p>
                   <p className="text-sm text-gray-700">
                     Post drops{" "}
@@ -828,13 +821,23 @@ export default function DashboardPage({
                 </div>
                 <div className="bg-white rounded-xl p-4 border border-green-200">
                   <p className="text-sm font-semibold text-gray-900 mb-2">
-                    💡 Member message after viewing
+                    Member message after viewing (Editable in code)
                   </p>
-                  <p className="text-sm text-gray-700">
-                    After reading today's drop, members see:{" "}
-                    <span className="font-bold text-green-700">
-                      "Come back tomorrow at midnight for your next drop!"
-                    </span>
+                  <p className="text-sm text-gray-700 mb-3">
+                    After reading today's drop, members currently see:
+                  </p>
+                  <div className="bg-gray-50 rounded-lg p-3 border border-gray-300">
+                    <p className="text-sm font-mono text-gray-900">
+                      "Next Drop Available Soon!"
+                    </p>
+                    <p className="text-sm font-mono text-gray-900">
+                      "Come back tomorrow at midnight (12:00 AM) for your next
+                      exclusive drop"
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-600 mt-2">
+                    To customize this message, edit the footer section in
+                    app/today/page.tsx
                   </p>
                 </div>
               </div>

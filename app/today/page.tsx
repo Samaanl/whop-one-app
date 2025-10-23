@@ -229,7 +229,7 @@ function TodayPageContent() {
                 <span className="text-purple-900 font-bold">
                   midnight (12:00 AM)
                 </span>{" "}
-                for your next exclusive drop 🎁
+                for your next exclusive drop
               </p>
             </div>
           </div>
