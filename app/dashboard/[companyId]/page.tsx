@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, use } from "react";
 import { useRouter } from "next/navigation";
 import {
   HiPencilAlt,
@@ -18,10 +18,10 @@ import {
 export default function DashboardPage({
   params,
 }: {
-  params: { companyId: string };
+  params: Promise<{ companyId: string }>;
 }) {
   const router = useRouter();
-  const { companyId } = params;
+  const { companyId } = use(params);
 
   const [formData, setFormData] = useState({
     title: "",
