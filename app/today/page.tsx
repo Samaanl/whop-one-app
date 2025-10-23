@@ -53,7 +53,13 @@ function TodayPageContent() {
         setDrop(data.drop);
         setError(null);
       } else if (response.status === 401 || response.status === 403) {
-        setError("You need to be a member to view this content.");
+        // Show detailed error for debugging
+        const errorMsg =
+          data.error || "You need to be a member to view this content.";
+        const debugInfo = data.debug
+          ? `\n\nDebug: ${JSON.stringify(data.debug)}`
+          : "";
+        setError(errorMsg + debugInfo);
       } else {
         setError(null);
       }
@@ -95,9 +101,19 @@ function TodayPageContent() {
           </div>
           <div className="space-y-3">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-              Access Required
+              Access Issue
             </h1>
-            <p className="text-gray-600 leading-relaxed">{error}</p>
+            <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+              {error}
+            </p>
+            <div className="text-xs text-gray-500 mt-4 p-3 bg-gray-100 rounded-lg text-left">
+              <p className="font-bold mb-2">Troubleshooting:</p>
+              <ul className="space-y-1 list-disc list-inside">
+                <li>Make sure you're accessing from your Whop dashboard</li>
+                <li>Check that the app has the correct permissions</li>
+                <li>Company ID: {companyId || "Not found"}</li>
+              </ul>
+            </div>
           </div>
           <button
             onClick={() => window.location.reload()}

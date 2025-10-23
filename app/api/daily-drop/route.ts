@@ -32,14 +32,23 @@ export async function GET(request: Request) {
     }
 
     // Verify the user has access to THIS specific company
+    // This allows: admins (owners/moderators) OR members with active memberships
     const hasAccess = await whopSdk.access.checkIfUserHasAccessToCompany({
       companyId,
       userId: userToken.userId,
     });
 
+    // Allow access if user is admin OR has any access to the company
     if (!hasAccess.hasAccess) {
       return NextResponse.json(
-        { error: "Access denied to this company" },
+        {
+          error: "You don't have access to this company's content",
+          debug: {
+            userId: userToken.userId,
+            companyId,
+            accessLevel: hasAccess.accessLevel,
+          },
+        },
         { status: 403 }
       );
     }
