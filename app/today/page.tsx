@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import {
@@ -20,7 +20,7 @@ interface DailyDrop {
   date: string;
 }
 
-export default function TodayPage() {
+function TodayPageContent() {
   const searchParams = useSearchParams();
   const companyId =
     searchParams.get("companyId") || process.env.NEXT_PUBLIC_WHOP_COMPANY_ID;
@@ -216,5 +216,30 @@ export default function TodayPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function TodayPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center space-y-6 animate-fade-in">
+            <div className="relative w-16 h-16 mx-auto">
+              <div className="absolute inset-0 border-4 border-purple-200 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <div className="space-y-2">
+              <p className="text-lg font-medium text-gray-900">
+                Loading today's drop
+              </p>
+              <p className="text-sm text-gray-500">Just a moment...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <TodayPageContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import {
@@ -15,7 +15,7 @@ import {
   HiArrowRight,
 } from "react-icons/hi";
 
-export default function AdminPage() {
+function AdminPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const companyId =
@@ -332,5 +332,27 @@ export default function AdminPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center space-y-6 animate-fade-in">
+            <div className="relative w-16 h-16 mx-auto">
+              <div className="absolute inset-0 border-4 border-purple-200 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <div className="space-y-2">
+              <p className="text-lg font-medium text-gray-900">Loading...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <AdminPageContent />
+    </Suspense>
   );
 }
