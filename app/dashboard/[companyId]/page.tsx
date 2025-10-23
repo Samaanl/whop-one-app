@@ -8,13 +8,11 @@ import {
   HiLink,
   HiCheckCircle,
   HiExclamationCircle,
-  HiSparkles,
   HiXCircle,
   HiInformationCircle,
   HiArrowRight,
   HiCalendar,
   HiCollection,
-  HiChartBar,
   HiTrash,
   HiEye,
   HiClock,
@@ -32,7 +30,7 @@ interface DailyDrop {
   companyId: string;
 }
 
-type Tab = "create" | "manage" | "analytics";
+type Tab = "create" | "manage";
 
 export default function DashboardPage({
   params,
@@ -71,7 +69,7 @@ export default function DashboardPage({
 
   // Fetch recent drops
   useEffect(() => {
-    if (activeTab === "manage" || activeTab === "analytics") {
+    if (activeTab === "manage") {
       fetchRecentDrops();
     }
   }, [activeTab, companyId]);
@@ -247,13 +245,60 @@ export default function DashboardPage({
     }
   };
 
+  const convertYouTubeUrl = (url: string): string => {
+    if (!url.trim()) return url;
+
+    try {
+      // Handle youtube.com/watch?v= format
+      if (url.includes("youtube.com/watch?v=")) {
+        const videoId = url.split("v=")[1]?.split("&")[0];
+        if (videoId) {
+          return `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
+
+      // Handle youtu.be/ short format
+      if (url.includes("youtu.be/")) {
+        const videoId = url.split("youtu.be/")[1]?.split("?")[0];
+        if (videoId) {
+          return `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
+
+      // Handle youtube.com/shorts/
+      if (url.includes("youtube.com/shorts/")) {
+        const videoId = url.split("shorts/")[1]?.split("?")[0];
+        if (videoId) {
+          return `https://www.youtube.com/embed/${videoId}`;
+        }
+      }
+
+      // If already in embed format or other video service, return as is
+      return url;
+    } catch (error) {
+      // If parsing fails, return original URL
+      return url;
+    }
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    // Auto-convert YouTube URLs to embed format
+    if (name === "video_url") {
+      const convertedUrl = convertYouTubeUrl(value);
+      setFormData({
+        ...formData,
+        [name]: convertedUrl,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const isFormValid = formData.content.trim().length > 0;
@@ -291,7 +336,7 @@ export default function DashboardPage({
         {/* Header */}
         <div className="text-center space-y-4 mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-sm font-medium">
-            <HiSparkles className="w-4 h-4" />
+            <HiPencilAlt className="w-4 h-4" />
             <span>Admin Dashboard</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold gradient-text">
@@ -349,17 +394,6 @@ export default function DashboardPage({
             <HiCollection className="w-5 h-5" />
             <span>Manage Drops</span>
           </button>
-          <button
-            onClick={() => setActiveTab("analytics")}
-            className={`flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${
-              activeTab === "analytics"
-                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            <HiChartBar className="w-5 h-5" />
-            <span>Analytics</span>
-          </button>
         </div>
 
         {/* Tab Content */}
@@ -374,7 +408,7 @@ export default function DashboardPage({
                     htmlFor="title"
                     className="flex items-center gap-2 text-sm font-semibold text-gray-900"
                   >
-                    <HiSparkles className="w-4 h-4 text-purple-600" />
+                    <HiPencilAlt className="w-4 h-4 text-purple-600" />
                     Title{" "}
                     <span className="text-gray-400 font-normal">
                       (Optional)
@@ -583,14 +617,6 @@ export default function DashboardPage({
                   <p className="text-xs text-gray-600">Max: 5,000 characters</p>
                 </div>
               </div>
-              <div className="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                <p className="text-xs text-gray-700">
-                  <strong className="text-purple-900">💡 Pro Tip:</strong>{" "}
-                  Fields will automatically prevent input beyond these limits.
-                  An orange warning will appear when you're approaching the
-                  maximum.
-                </p>
-              </div>
             </div>
           </div>
         )}
@@ -738,125 +764,6 @@ export default function DashboardPage({
                 ))}
               </div>
             )}
-          </div>
-        )}
-
-        {activeTab === "analytics" && (
-          <div className="space-y-6">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="glass rounded-2xl p-6 card-hover">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-purple-100 to-indigo-100">
-                    <HiCollection className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Total Drops</p>
-                    <p className="text-3xl font-bold text-gray-900">
-                      {stats.totalDrops}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="glass rounded-2xl p-6 card-hover">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-green-100 to-emerald-100">
-                    <HiCalendar className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">This Month</p>
-                    <p className="text-3xl font-bold text-gray-900">
-                      {stats.thisMonth}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="glass rounded-2xl p-6 card-hover">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100">
-                    <HiClock className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">This Week</p>
-                    <p className="text-3xl font-bold text-gray-900">
-                      {stats.thisWeek}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Next Drop Reminder */}
-            <div className="glass rounded-2xl p-6 border-2 border-purple-200 bg-gradient-to-br from-purple-50/50 to-indigo-50/50">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <HiClock className="w-5 h-5 text-purple-600" />
-                Member Expectations
-              </h3>
-              <div className="space-y-4">
-                <div className="bg-white rounded-xl p-4 border border-purple-200">
-                  <p className="text-sm font-semibold text-gray-900 mb-2">
-                    When will members see the next drop?
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    Members expect{" "}
-                    <strong className="text-purple-700">
-                      daily drops at midnight (12:00 AM)
-                    </strong>{" "}
-                    based on the date field. If you haven't posted today's drop
-                    yet, it will show as "No drop today" to members.
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-4 border border-blue-200">
-                  <p className="text-sm font-semibold text-gray-900 mb-2">
-                    What time should you post?
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    Post drops{" "}
-                    <strong className="text-blue-700">before midnight</strong>{" "}
-                    (ideally in the evening) so members see fresh content when
-                    they check in the morning. Consistency builds habit!
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-4 border border-green-200">
-                  <p className="text-sm font-semibold text-gray-900 mb-2">
-                    Member message after viewing (Editable in code)
-                  </p>
-                  <p className="text-sm text-gray-700 mb-3">
-                    After reading today's drop, members currently see:
-                  </p>
-                  <div className="bg-gray-50 rounded-lg p-3 border border-gray-300">
-                    <p className="text-sm font-mono text-gray-900">
-                      "Check Back Soon"
-                    </p>
-                    <p className="text-sm font-mono text-gray-900">
-                      "New exclusive drops are published regularly. Check back
-                      soon for your next drop!"
-                    </p>
-                  </div>
-                  <p className="text-xs text-gray-600 mt-2">
-                    To customize this message, edit the footer section in
-                    app/today/page.tsx
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Tips Card */}
-            <div className="glass rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <HiSparkles className="w-5 h-5 text-purple-600" />
-                Content Tips
-              </h3>
-              <div className="space-y-3 text-sm text-gray-700">
-                <p>• Aim for 3-5 drops per week for optimal engagement</p>
-                <p>• Keep content concise - 100-300 words is ideal</p>
-                <p>• Use videos to boost member engagement by 2-3x</p>
-                <p>• Post consistently at the same time each day</p>
-                <p>• Include actionable takeaways in every drop</p>
-              </div>
-            </div>
           </div>
         )}
       </div>
